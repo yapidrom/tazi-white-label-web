@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Hero from '../../components/Hero.astro';
+import HowItWorks from '../../components/HowItWorks.astro';
+import Gallery from '../../components/Gallery.astro';
+import Pricing from '../../components/Pricing.astro';
+import Map from '../../components/Map.astro';
+import AppDownload from '../../components/AppDownload.astro';
+import FAQ from '../../components/FAQ.astro';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+import Modals from '../../components/Modals.astro';
+
+const lang = 'en' as const;
+---
+
+<Layout
+  title="Merbis - Municipality Micromobility Service"
+  description="Eco-friendly, fast, and affordable micromobility in your city with Merbis. Rent e-scooters and e-bikes."
+  lang={lang}
+>
+  <Navbar lang={lang} />
+  <main>
+    <Hero lang={lang} />
+    <HowItWorks lang={lang} />
+    <Gallery lang={lang} />
+    <Pricing lang={lang} />
+    <Map lang={lang} />
+    <AppDownload lang={lang} />
+    <FAQ lang={lang} />
+    <Contact lang={lang} />
+  </main>
+  <Footer lang={lang} />
+  <Modals lang={lang} />
+</Layout>

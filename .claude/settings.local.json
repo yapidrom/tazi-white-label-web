@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(npm create:*)",
+      "Bash(mv spiffy-series/* .)",
+      "Bash(mv spiffy-series/.* .)",
+      "Bash(rm -rf spiffy-series)",
+      "Bash(cp -r spiffy-series/src .)",
+      "Bash(cp -r spiffy-series/public .)",
+      "Bash(cp spiffy-series/astro.config.mjs .)",
+      "Bash(cp spiffy-series/package.json .)",
+      "Bash(cp spiffy-series/package-lock.json .)",
+      "Bash(cp spiffy-series/tsconfig.json .)",
+      "Bash(npm install:*)",
+      "Bash(npm run:*)",
+      "WebFetch(domain:unsplash.com)",
+      "WebFetch(domain:dev.to)",
+      "Bash(git init:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

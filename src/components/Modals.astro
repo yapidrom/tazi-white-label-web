@@ -1,0 +1,502 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<!-- Toast Container -->
+<div id="toast-container" class="fixed top-20 right-4 z-[100] flex flex-col gap-3 pointer-events-none"></div>
+
+<!-- ===== DELETE ACCOUNT MODAL ===== -->
+<div id="delete-modal" class="modal-overlay fixed inset-0 z-[90] hidden">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+  <div class="relative z-10 min-h-screen flex items-center justify-center p-4">
+    <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative">
+      <!-- Close button -->
+      <button class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-all" id="delete-close-btn">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+
+      <!-- Step 1: Phone -->
+      <div id="delete-step-phone">
+        <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center mb-5 mx-auto">
+          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" /></svg>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 text-center">{t('delete.title')}</h3>
+        <p class="text-sm text-slate-600 text-center mt-2">{t('delete.desc')}</p>
+        <div class="mt-6">
+          <label class="block text-sm font-medium text-slate-700 mb-1.5">{t('delete.phone')}</label>
+          <div class="flex items-stretch" id="phone-input-wrapper">
+            <span class="inline-flex items-center px-3.5 bg-slate-100 border border-r-0 border-slate-300 rounded-l-xl text-sm font-medium text-slate-600 select-none transition-colors" id="phone-prefix">+90</span>
+            <input
+              type="tel"
+              id="delete-phone-input"
+              maxlength="13"
+              placeholder="5XX XXX XX XX"
+              class="flex-1 min-w-0 px-4 py-3 border border-slate-300 rounded-r-xl text-sm tracking-wide outline-none transition-all"
+            />
+          </div>
+          <p id="delete-phone-error" class="text-xs text-red-500 mt-1.5 hidden">{t('delete.phoneError')}</p>
+        </div>
+        <button id="delete-send-otp" class="w-full mt-4 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl transition-all hover:shadow-lg active:scale-[0.98] duration-200 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+          {t('delete.sendOtp')}
+        </button>
+        <button class="w-full mt-2 text-sm text-slate-500 hover:text-slate-700 py-2 transition-colors" id="delete-cancel-btn">
+          {t('delete.cancel')}
+        </button>
+      </div>
+
+      <!-- Step 2: OTP -->
+      <div id="delete-step-otp" class="hidden">
+        <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mb-5 mx-auto">
+          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+        </div>
+        <h3 class="text-xl font-bold text-slate-900 text-center">{t('delete.otpTitle')}</h3>
+        <p class="text-sm text-slate-600 text-center mt-2">{t('delete.otpDesc')}</p>
+        <div class="mt-6">
+          <input
+            type="text"
+            id="delete-otp-input"
+            maxlength="6"
+            placeholder={t('delete.otpPlaceholder')}
+            class="w-full px-4 py-3 border border-slate-300 rounded-xl text-sm text-center tracking-[0.5em] font-mono text-lg outline-none transition-all"
+          />
+          <p id="delete-otp-error" class="text-xs text-red-500 mt-1.5 hidden">{lang === 'tr' ? 'Lütfen 6 haneli doğrulama kodunu girin.' : 'Please enter the 6-digit verification code.'}</p>
+        </div>
+        <!-- Inline error alert (shown on fail) -->
+        <div id="delete-inline-error" class="hidden mt-4 flex items-start gap-2.5 p-3.5 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm transition-all">
+          <svg class="w-5 h-5 flex-shrink-0 mt-0.5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+          <div>
+            <p class="font-semibold" id="delete-inline-error-title"></p>
+            <p class="text-xs mt-0.5 opacity-80" id="delete-inline-error-msg"></p>
+          </div>
+        </div>
+        <!-- Test buttons -->
+        <div class="flex gap-3 mt-4">
+          <button id="delete-test-success" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-xl transition-all hover:shadow-lg active:scale-[0.98] duration-200 text-sm">
+            {t('delete.testSuccess')}
+          </button>
+          <button id="delete-test-fail" class="flex-1 bg-red-600 hover:bg-red-700 text-white font-semibold py-3 rounded-xl transition-all hover:shadow-lg active:scale-[0.98] duration-200 text-sm">
+            {t('delete.testFail')}
+          </button>
+        </div>
+        <button id="delete-back" class="w-full mt-2 text-sm text-slate-500 hover:text-slate-700 py-2 transition-colors">
+          {t('delete.back')}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm close dialog (for OTP step) -->
+<div id="confirm-close-dialog" class="fixed inset-0 z-[95] hidden">
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="relative z-10 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center transform scale-95 opacity-0 transition-all duration-200" id="confirm-close-content">
+      <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center mb-4 mx-auto">
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
+      </div>
+      <p class="text-sm text-slate-700 leading-relaxed">{t('delete.confirmClose')}</p>
+      <div class="flex gap-3 mt-5">
+        <button id="confirm-close-stay" class="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2.5 rounded-xl transition-all text-sm">
+          {lang === 'tr' ? 'Devam Et' : 'Stay'}
+        </button>
+        <button id="confirm-close-leave" class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2.5 rounded-xl transition-all text-sm">
+          {lang === 'tr' ? 'Çık' : 'Leave'}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TERMS MODAL ===== -->
+<div id="terms-modal" class="modal-overlay fixed inset-0 z-[90] hidden">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+  <div class="relative z-10 min-h-screen flex items-center justify-center p-4">
+    <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col relative">
+      <div class="flex items-center justify-between p-6 border-b border-slate-200">
+        <h3 class="text-xl font-bold text-slate-900">{t('terms.title')}</h3>
+        <button class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-all" data-close-modal="terms-modal">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto legal-content" set:html={t('terms.content')} />
+      <div class="p-4 border-t border-slate-200 flex justify-end">
+        <button class="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all hover:shadow-lg active:scale-[0.98] duration-200" data-close-modal="terms-modal">
+          {t('delete.close')}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PRIVACY MODAL ===== -->
+<div id="privacy-modal" class="modal-overlay fixed inset-0 z-[90] hidden">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+  <div class="relative z-10 min-h-screen flex items-center justify-center p-4">
+    <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col relative">
+      <div class="flex items-center justify-between p-6 border-b border-slate-200">
+        <h3 class="text-xl font-bold text-slate-900">{t('legal.privacy')}</h3>
+        <button class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-all" data-close-modal="privacy-modal">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto legal-content" set:html={t('kvkk.content')} />
+      <div class="p-4 border-t border-slate-200 flex justify-end">
+        <button class="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all hover:shadow-lg active:scale-[0.98] duration-200" data-close-modal="privacy-modal">
+          {t('delete.close')}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== KVKK MODAL ===== -->
+<div id="kvkk-modal" class="modal-overlay fixed inset-0 z-[90] hidden">
+  <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+  <div class="relative z-10 min-h-screen flex items-center justify-center p-4">
+    <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col relative">
+      <div class="flex items-center justify-between p-6 border-b border-slate-200">
+        <h3 class="text-xl font-bold text-slate-900">{t('kvkk.title')}</h3>
+        <button class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-all" data-close-modal="kvkk-modal">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div class="p-6 overflow-y-auto legal-content" set:html={t('kvkk.content')} />
+      <div class="p-4 border-t border-slate-200 flex justify-end">
+        <button class="bg-primary-600 hover:bg-primary-700 text-white font-semibold px-6 py-2.5 rounded-xl transition-all hover:shadow-lg active:scale-[0.98] duration-200" data-close-modal="kvkk-modal">
+          {t('delete.close')}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const TOAST_DURATION = 4000;
+
+  // === Modal System ===
+  function openModal(id: string) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+      modal.classList.add('modal-visible');
+    });
+  }
+
+  function closeModal(id: string) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+    modal.classList.remove('modal-visible');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }, 300);
+  }
+
+  // Close buttons (X buttons inside modals)
+  document.querySelectorAll('[data-close-modal]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const modalId = (btn as HTMLElement).dataset.closeModal;
+      if (modalId) closeModal(modalId);
+    });
+  });
+
+  // Click outside modal content = close (for ALL modals)
+  // Uses event delegation: click on the overlay checks if it hit the content area
+  document.querySelectorAll('.modal-overlay').forEach((overlay) => {
+    overlay.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      // Only close if click is on the overlay itself or the backdrop, not on modal-content
+      const content = overlay.querySelector('.modal-content');
+      if (content && content.contains(target)) return;
+
+      // Special case: delete modal on OTP step -> show warning
+      if (overlay.id === 'delete-modal') {
+        const otpStep = document.getElementById('delete-step-otp');
+        if (otpStep && !otpStep.classList.contains('hidden')) {
+          showConfirmDialog();
+          return;
+        }
+      }
+
+      closeModal(overlay.id);
+    });
+  });
+
+  // Escape key — with OTP step check
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const confirmDialog = document.getElementById('confirm-close-dialog');
+    if (confirmDialog && !confirmDialog.classList.contains('hidden')) {
+      hideConfirmDialog();
+      return;
+    }
+    // If delete modal is on OTP step, show warning
+    const deleteModal = document.getElementById('delete-modal');
+    const stepOtp = document.getElementById('delete-step-otp');
+    if (deleteModal && !deleteModal.classList.contains('hidden') && stepOtp && !stepOtp.classList.contains('hidden')) {
+      showConfirmDialog();
+      return;
+    }
+    // Close other open modals normally
+    document.querySelectorAll('.modal-overlay:not(.hidden)').forEach((m) => {
+      closeModal(m.id);
+    });
+  });
+
+  // Open triggers from navbar
+  document.querySelectorAll('.legal-modal-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const id = (trigger as HTMLElement).id.replace('mobile-', '').replace('open-', '').replace('-modal', '') + '-modal';
+      const dropdownMenu = document.getElementById('legal-dropdown-menu');
+      dropdownMenu?.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+      dropdownMenu?.classList.remove('opacity-100', 'scale-100');
+      document.getElementById('mobile-menu')?.classList.add('hidden');
+      openModal(id);
+    });
+  });
+
+  // === Delete Account Flow ===
+  const stepPhone = document.getElementById('delete-step-phone');
+  const stepOtp = document.getElementById('delete-step-otp');
+  const sendOtpBtn = document.getElementById('delete-send-otp') as HTMLButtonElement;
+  const backBtn = document.getElementById('delete-back');
+  const phoneInput = document.getElementById('delete-phone-input') as HTMLInputElement;
+  const phonePrefix = document.getElementById('phone-prefix');
+  const phoneError = document.getElementById('delete-phone-error');
+  const deleteCloseBtn = document.getElementById('delete-close-btn');
+  const deleteCancelBtn = document.getElementById('delete-cancel-btn');
+
+  function showStep(step: 'phone' | 'otp') {
+    if (step === 'phone') {
+      stepPhone?.classList.remove('hidden');
+      stepOtp?.classList.add('hidden');
+    } else {
+      stepPhone?.classList.add('hidden');
+      stepOtp?.classList.remove('hidden');
+    }
+  }
+
+  // Format phone as 5XX XXX XX XX
+  function formatPhone(raw: string): string {
+    const d = raw.replace(/\D/g, '').slice(0, 10);
+    if (d.length <= 3) return d;
+    if (d.length <= 6) return d.slice(0, 3) + ' ' + d.slice(3);
+    if (d.length <= 8) return d.slice(0, 3) + ' ' + d.slice(3, 6) + ' ' + d.slice(6);
+    return d.slice(0, 3) + ' ' + d.slice(3, 6) + ' ' + d.slice(6, 8) + ' ' + d.slice(8);
+  }
+
+  function updatePhoneValidation() {
+    const digits = phoneInput.value.replace(/\D/g, '');
+    const isValid = digits.length === 10;
+    const isEmpty = digits.length === 0;
+
+    // Red border while typing but not yet 10 digits
+    if (!isEmpty && !isValid) {
+      phoneInput.classList.add('border-red-400', 'focus:ring-red-400', 'focus:border-red-400');
+      phoneInput.classList.remove('border-slate-300', 'focus:ring-primary-500', 'focus:border-primary-500', 'border-green-400', 'focus:ring-green-400', 'focus:border-green-400');
+      phonePrefix?.classList.add('border-red-400', 'text-red-500');
+      phonePrefix?.classList.remove('border-slate-300', 'text-slate-600', 'border-green-400', 'text-green-600');
+      phoneError?.classList.remove('hidden');
+    } else if (isValid) {
+      phoneInput.classList.add('border-green-400', 'focus:ring-green-400', 'focus:border-green-400');
+      phoneInput.classList.remove('border-slate-300', 'focus:ring-primary-500', 'focus:border-primary-500', 'border-red-400', 'focus:ring-red-400', 'focus:border-red-400');
+      phonePrefix?.classList.add('border-green-400', 'text-green-600');
+      phonePrefix?.classList.remove('border-slate-300', 'text-slate-600', 'border-red-400', 'text-red-500');
+      phoneError?.classList.add('hidden');
+    } else {
+      // Empty — neutral
+      phoneInput.classList.add('border-slate-300', 'focus:ring-primary-500', 'focus:border-primary-500');
+      phoneInput.classList.remove('border-red-400', 'focus:ring-red-400', 'focus:border-red-400', 'border-green-400', 'focus:ring-green-400', 'focus:border-green-400');
+      phonePrefix?.classList.add('border-slate-300', 'text-slate-600');
+      phonePrefix?.classList.remove('border-red-400', 'text-red-500', 'border-green-400', 'text-green-600');
+      phoneError?.classList.add('hidden');
+    }
+
+    // Enable/disable submit button
+    if (sendOtpBtn) sendOtpBtn.disabled = !isValid;
+  }
+
+  phoneInput?.addEventListener('input', () => {
+    const cursor = phoneInput.selectionStart || 0;
+    const prevLen = phoneInput.value.length;
+    phoneInput.value = formatPhone(phoneInput.value);
+    const diff = phoneInput.value.length - prevLen;
+    phoneInput.setSelectionRange(cursor + diff, cursor + diff);
+    updatePhoneValidation();
+  });
+
+  // OTP input: digits only
+  const otpInputEl = document.getElementById('delete-otp-input') as HTMLInputElement;
+  otpInputEl?.addEventListener('input', () => {
+    otpInputEl.value = otpInputEl.value.replace(/\D/g, '').slice(0, 6);
+  });
+
+  sendOtpBtn?.addEventListener('click', () => {
+    const val = phoneInput?.value.replace(/\D/g, '') || '';
+    if (val.length !== 10) return;
+    showStep('otp');
+  });
+
+  backBtn?.addEventListener('click', () => showStep('phone'));
+  deleteCancelBtn?.addEventListener('click', () => closeModal('delete-modal'));
+
+  // Delete modal close/X button — context-aware
+  deleteCloseBtn?.addEventListener('click', () => {
+    if (stepOtp && !stepOtp.classList.contains('hidden')) {
+      showConfirmDialog();
+    } else {
+      closeModal('delete-modal');
+    }
+  });
+
+  // === Confirm Close Dialog ===
+  const confirmDialog = document.getElementById('confirm-close-dialog');
+  const confirmContent = document.getElementById('confirm-close-content');
+  const confirmStay = document.getElementById('confirm-close-stay');
+  const confirmLeave = document.getElementById('confirm-close-leave');
+
+  function showConfirmDialog() {
+    confirmDialog?.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      if (confirmContent) {
+        confirmContent.style.transform = 'scale(1)';
+        confirmContent.style.opacity = '1';
+      }
+    });
+  }
+
+  function hideConfirmDialog() {
+    if (confirmContent) {
+      confirmContent.style.transform = 'scale(0.95)';
+      confirmContent.style.opacity = '0';
+    }
+    setTimeout(() => {
+      confirmDialog?.classList.add('hidden');
+    }, 200);
+  }
+
+  confirmStay?.addEventListener('click', hideConfirmDialog);
+  confirmLeave?.addEventListener('click', () => {
+    hideConfirmDialog();
+    setTimeout(() => closeModal('delete-modal'), 200);
+  });
+
+  // Reset when modal closes
+  const deleteModal = document.getElementById('delete-modal');
+  const observer = new MutationObserver(() => {
+    if (deleteModal?.classList.contains('hidden')) {
+      showStep('phone');
+      if (phoneInput) phoneInput.value = '';
+      if (otpInputEl) otpInputEl.value = '';
+      phoneError?.classList.add('hidden');
+      document.getElementById('delete-otp-error')?.classList.add('hidden');
+      document.getElementById('delete-inline-error')?.classList.add('hidden');
+      // Reset phone input styling
+      phoneInput?.classList.remove('border-red-400', 'focus:ring-red-400', 'focus:border-red-400', 'border-green-400', 'focus:ring-green-400', 'focus:border-green-400');
+      phoneInput?.classList.add('border-slate-300', 'focus:ring-primary-500', 'focus:border-primary-500');
+      phonePrefix?.classList.remove('border-red-400', 'text-red-500', 'border-green-400', 'text-green-600');
+      phonePrefix?.classList.add('border-slate-300', 'text-slate-600');
+      if (sendOtpBtn) sendOtpBtn.disabled = true;
+    }
+  });
+  if (deleteModal) observer.observe(deleteModal, { attributes: true, attributeFilter: ['class'] });
+
+  // === Toast System with Progress Bar ===
+  function showToast(type: 'success' | 'error', title: string, message: string) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `pointer-events-auto w-80 rounded-xl shadow-2xl border overflow-hidden transition-all duration-500 translate-x-[120%] ${
+      type === 'success'
+        ? 'bg-green-50 border-green-200 text-green-800'
+        : 'bg-red-50 border-red-200 text-red-800'
+    }`;
+
+    const icon = type === 'success'
+      ? '<svg class="w-5 h-5 mt-0.5 flex-shrink-0 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>'
+      : '<svg class="w-5 h-5 mt-0.5 flex-shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>';
+
+    const barColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+
+    toast.innerHTML = `<div class="flex items-start gap-3 p-4">${icon}<div><p class="font-semibold text-sm">${title}</p><p class="text-xs mt-0.5 opacity-80">${message}</p></div></div><div class="h-1 w-full bg-black/5"><div class="toast-progress h-full ${barColor} rounded-r-full" style="width:100%;transition:width ${TOAST_DURATION}ms linear"></div></div>`;
+
+    container.appendChild(toast);
+
+    // Slide in
+    requestAnimationFrame(() => {
+      toast.classList.remove('translate-x-[120%]');
+      toast.classList.add('translate-x-0');
+      // Start progress bar drain
+      requestAnimationFrame(() => {
+        const bar = toast.querySelector('.toast-progress') as HTMLElement;
+        if (bar) bar.style.width = '0%';
+      });
+    });
+
+    // Auto remove when progress finishes
+    setTimeout(() => {
+      toast.classList.add('translate-x-[120%]', 'opacity-0');
+      setTimeout(() => toast.remove(), 500);
+    }, TOAST_DURATION);
+  }
+
+  // Expose for define:vars script
+  (window as any).__showToast = showToast;
+  (window as any).__closeModal = closeModal;
+</script>
+
+<!-- Toast button handlers with translated strings -->
+<script define:vars={{
+  successTitle: t('delete.successTitle'),
+  successMsg: t('delete.successMsg'),
+  failTitle: t('delete.failTitle'),
+  failMsg: t('delete.failMsg'),
+}}>
+  document.getElementById('delete-test-success')?.addEventListener('click', function() {
+    var otpVal = document.getElementById('delete-otp-input')?.value.replace(/\D/g, '') || '';
+    if (otpVal.length !== 6) {
+      document.getElementById('delete-otp-error')?.classList.remove('hidden');
+      document.getElementById('delete-otp-input')?.focus();
+      return;
+    }
+    window.__closeModal?.('delete-modal');
+    setTimeout(function() {
+      window.__showToast?.('success', successTitle, successMsg);
+    }, 350);
+  });
+  document.getElementById('delete-test-fail')?.addEventListener('click', function() {
+    var otpVal = document.getElementById('delete-otp-input')?.value.replace(/\D/g, '') || '';
+    if (otpVal.length !== 6) {
+      document.getElementById('delete-otp-error')?.classList.remove('hidden');
+      document.getElementById('delete-otp-input')?.focus();
+      return;
+    }
+    // Stay on dialog, show inline error
+    var inlineError = document.getElementById('delete-inline-error');
+    var errorTitle = document.getElementById('delete-inline-error-title');
+    var errorMsg = document.getElementById('delete-inline-error-msg');
+    if (errorTitle) errorTitle.textContent = failTitle;
+    if (errorMsg) errorMsg.textContent = failMsg;
+    if (inlineError) {
+      inlineError.classList.remove('hidden');
+      inlineError.style.animation = 'none';
+      inlineError.offsetHeight;
+      inlineError.style.animation = 'shake 0.4s ease';
+    }
+  });
+  // Clear OTP error on input
+  document.getElementById('delete-otp-input')?.addEventListener('input', function() {
+    document.getElementById('delete-otp-error')?.classList.add('hidden');
+  });
+</script>

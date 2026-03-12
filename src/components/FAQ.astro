@@ -1,0 +1,178 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const faqs = [
+  { q: t('faq.q1'), a: t('faq.a1') },
+  { q: t('faq.q2'), a: t('faq.a2') },
+  { q: t('faq.q3'), a: t('faq.a3') },
+  { q: t('faq.q4'), a: t('faq.a4') },
+  { q: t('faq.q5'), a: t('faq.a5') },
+  { q: t('faq.q6'), a: t('faq.a6') },
+  { q: t('faq.q7'), a: t('faq.a7') },
+];
+---
+
+<section id="faq" class="py-20 sm:py-28 bg-slate-50">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center" data-animate>
+      <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">{t('faq.title')}</h2>
+      <p class="mt-4 text-lg text-slate-600">{t('faq.subtitle')}</p>
+    </div>
+
+    <!-- FAQ Items -->
+    <div class="mt-12" id="faq-list">
+      {faqs.map((faq, i) => (
+        <div
+          class:list={[
+            'faq-item-wrapper',
+            i > 0 && 'mt-4',
+            i >= 3 && 'faq-extra',
+          ]}
+          data-animate
+          style={`transition-delay: ${Math.min(i, 2) * 100}ms;`}
+        >
+          <details class="faq-item group bg-white rounded-2xl border border-slate-200 overflow-hidden card-hover">
+            <summary class="flex items-center justify-between cursor-pointer p-6 text-left list-none [&::-webkit-details-marker]:hidden">
+              <span class="font-semibold text-slate-900 pr-4">{faq.q}</span>
+              <span class="flex-shrink-0 w-8 h-8 bg-primary-100 text-primary-600 rounded-full flex items-center justify-center group-open:rotate-45 transition-transform duration-300">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6" />
+                </svg>
+              </span>
+            </summary>
+            <div class="faq-answer">
+              <div class="px-6 pb-6 text-slate-600 leading-relaxed">
+                {faq.a}
+              </div>
+            </div>
+          </details>
+        </div>
+      ))}
+    </div>
+
+    <!-- Show More / Show Less Button -->
+    <div class="mt-4 text-center" data-animate>
+      <button
+        id="faq-toggle"
+        class="inline-flex items-center gap-2 bg-white border-2 border-slate-200 hover:border-primary-400 text-slate-700 hover:text-primary-600 font-semibold px-6 py-3 rounded-xl transition-all hover:-translate-y-0.5"
+      >
+        <span id="faq-toggle-text">{t('faq.showMore')}</span>
+        <svg id="faq-toggle-icon" class="w-4 h-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ showMoreText: t('faq.showMore'), showLessText: t('faq.showLess') }}>
+  // --- Smooth accordion open/close ---
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach((details) => {
+    const summary = details.querySelector('summary');
+    const answer = details.querySelector('.faq-answer');
+    if (!summary || !answer) return;
+
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if (details.open) {
+        // Closing: animate then remove open
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        answer.style.opacity = '1';
+        requestAnimationFrame(() => {
+          answer.style.maxHeight = '0';
+          answer.style.opacity = '0';
+        });
+        answer.addEventListener('transitionend', function handler() {
+          details.removeAttribute('open');
+          answer.removeEventListener('transitionend', handler);
+        }, { once: true });
+      } else {
+        // Close all others first
+        faqItems.forEach((other) => {
+          if (other !== details && other.open) {
+            const otherAnswer = other.querySelector('.faq-answer');
+            if (otherAnswer) {
+              otherAnswer.style.maxHeight = otherAnswer.scrollHeight + 'px';
+              otherAnswer.style.opacity = '1';
+              requestAnimationFrame(() => {
+                otherAnswer.style.maxHeight = '0';
+                otherAnswer.style.opacity = '0';
+              });
+              otherAnswer.addEventListener('transitionend', function handler() {
+                other.removeAttribute('open');
+                otherAnswer.removeEventListener('transitionend', handler);
+              }, { once: true });
+            }
+          }
+        });
+
+        // Open this one: set open, then animate
+        details.setAttribute('open', '');
+        answer.style.maxHeight = '0';
+        answer.style.opacity = '0';
+        requestAnimationFrame(() => {
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          answer.style.opacity = '1';
+        });
+        // After transition, remove inline max-height so content can reflow
+        answer.addEventListener('transitionend', function handler() {
+          answer.style.maxHeight = 'none';
+          answer.removeEventListener('transitionend', handler);
+        }, { once: true });
+      }
+    });
+  });
+
+  // --- Show more / show less with staggered animation ---
+  const toggleBtn = document.getElementById('faq-toggle');
+  const toggleText = document.getElementById('faq-toggle-text');
+  const toggleIcon = document.getElementById('faq-toggle-icon');
+  const extraFaqs = document.querySelectorAll('.faq-extra');
+  let expanded = false;
+
+  toggleBtn?.addEventListener('click', () => {
+    expanded = !expanded;
+
+    if (expanded) {
+      // Show: reveal each with staggered animation
+      extraFaqs.forEach((faq, i) => {
+        faq.classList.remove('faq-collapsed');
+        faq.style.transitionDelay = `${i * 80}ms`;
+        // Force reflow then add visible class
+        requestAnimationFrame(() => {
+          faq.classList.add('faq-expanded');
+        });
+      });
+    } else {
+      // Hide: reverse stagger
+      const total = extraFaqs.length;
+      extraFaqs.forEach((faq, i) => {
+        faq.style.transitionDelay = `${(total - 1 - i) * 60}ms`;
+        faq.classList.remove('faq-expanded');
+      });
+      // After all transitions complete, collapse
+      const lastDelay = (total - 1) * 60 + 400;
+      setTimeout(() => {
+        extraFaqs.forEach((faq) => {
+          faq.classList.add('faq-collapsed');
+          faq.style.transitionDelay = '';
+        });
+      }, lastDelay);
+    }
+
+    if (toggleText) toggleText.textContent = expanded ? showLessText : showMoreText;
+    toggleIcon?.classList.toggle('rotate-180', expanded);
+  });
+</script>

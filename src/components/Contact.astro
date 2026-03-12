@@ -1,0 +1,84 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const contactItems = [
+  {
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>`,
+    label: t('contact.address'),
+    value: t('contact.addressVal'),
+    href: 'https://maps.google.com/?q=Belediye+Binası+Cumhuriyet+Cad+No+1+Merkez',
+    external: true,
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>`,
+    label: t('contact.phone'),
+    value: t('contact.phoneVal'),
+    href: 'tel:+903120000000',
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>`,
+    label: t('contact.email'),
+    value: t('contact.emailVal'),
+    href: 'mailto:merbis@belediye.gov.tr',
+  },
+  {
+    icon: `<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>`,
+    label: t('contact.hours'),
+    value: t('contact.hoursVal'),
+  },
+];
+---
+
+<section id="contact" class="py-20 sm:py-28 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto" data-animate>
+      <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">{t('contact.title')}</h2>
+      <p class="mt-4 text-lg text-slate-600">{t('contact.subtitle')}</p>
+    </div>
+
+    <!-- Contact Cards -->
+    <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto" data-stagger>
+      {contactItems.map((item) => {
+        const Tag = item.href ? 'a' : 'div';
+        return (
+          <a
+            href={item.href || undefined}
+            target={item.external ? '_blank' : undefined}
+            rel={item.external ? 'noopener noreferrer' : undefined}
+            class:list={[
+              'card-hover bg-slate-50 rounded-2xl p-6 text-center border border-slate-100 group block',
+              item.href && 'cursor-pointer',
+            ]}
+          >
+            <div class="inline-flex items-center justify-center w-12 h-12 bg-primary-100 text-primary-600 rounded-xl mb-4 group-hover:scale-110 group-hover:bg-primary-200 transition-all duration-300">
+              <Fragment set:html={item.icon} />
+            </div>
+            <h3 class="font-semibold text-slate-900 mb-1">{item.label}</h3>
+            <p class:list={[
+              'text-sm transition-colors duration-200',
+              item.href ? 'text-primary-600 group-hover:text-primary-700' : 'text-slate-600',
+            ]}>
+              {item.value}
+            </p>
+            {item.external && (
+              <span class="inline-block mt-2 text-xs text-slate-400 group-hover:text-primary-500 transition-colors">
+                <svg class="w-3.5 h-3.5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+              </span>
+            )}
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,367 @@
+---
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const galleryItems = [
+  {
+    title: lang === 'tr' ? 'E-Scooter' : 'E-Scooter',
+    desc: lang === 'tr' ? 'Şehir içi hızlı ulaşım' : 'Fast urban transport',
+    image: 'https://images.unsplash.com/photo-1566936737687-8f392a237b8b?w=1200&q=80',
+  },
+  {
+    title: lang === 'tr' ? 'E-Bisiklet' : 'E-Bike',
+    desc: lang === 'tr' ? 'Konforlu ve çevre dostu' : 'Comfortable and eco-friendly',
+    image: 'https://images.unsplash.com/photo-1666359765531-8b24b30f1b5b?w=1200&q=80',
+  },
+  {
+    title: lang === 'tr' ? 'Park Alanları' : 'Parking Zones',
+    desc: lang === 'tr' ? 'Şehir genelinde belirlenmiş alanlar' : 'Designated areas across the city',
+    image: 'https://images.unsplash.com/photo-1615445176538-74823d3cf11c?w=1200&q=80',
+  },
+  {
+    title: lang === 'tr' ? 'Güvenlik Ekipmanları' : 'Safety Gear',
+    desc: lang === 'tr' ? 'Kask ve koruyucu ekipmanlar' : 'Helmets and protective equipment',
+    image: 'https://images.unsplash.com/photo-1603903824200-2c6927fd4b03?w=1200&q=80',
+  },
+  {
+    title: lang === 'tr' ? 'Mobil Uygulama' : 'Mobile App',
+    desc: lang === 'tr' ? 'Her şey avucunuzun içinde' : 'Everything in your pocket',
+    image: 'https://images.unsplash.com/photo-1544198841-6ae3e25ea8f0?w=1200&q=80',
+  },
+  {
+    title: lang === 'tr' ? 'Şarj İstasyonları' : 'Charging Stations',
+    desc: lang === 'tr' ? 'Şehir genelinde şarj noktaları' : 'Charging points across the city',
+    image: 'https://images.unsplash.com/photo-1703860271509-b50f5679f2a0?w=1200&q=80',
+  },
+];
+---
+
+<section id="gallery" class="py-20 sm:py-28 bg-white overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center max-w-2xl mx-auto" data-animate>
+      <h2 class="text-3xl sm:text-4xl font-bold text-slate-900">{t('gallery.title')}</h2>
+      <p class="mt-4 text-lg text-slate-600">{t('gallery.subtitle')}</p>
+    </div>
+  </div>
+
+  <!-- Carousel -->
+  <div class="relative mt-10 max-w-5xl mx-auto px-4 sm:px-6" data-animate>
+    <div class="relative" id="gallery-carousel">
+      <!-- Slides container -->
+      <div class="relative w-full aspect-[16/9] sm:aspect-[2/1] overflow-hidden rounded-2xl sm:rounded-3xl">
+        {galleryItems.map((item, i) => (
+          <div
+            class="gallery-slide absolute inset-0 transition-all duration-500 ease-out cursor-pointer"
+            data-gallery-index={i}
+            style={i === 0 ? '' : 'opacity:0; pointer-events:none;'}
+          >
+            {/* Photo */}
+            <img
+              src={item.image}
+              alt={item.title}
+              class="absolute inset-0 w-full h-full object-cover"
+              loading={i === 0 ? 'eager' : 'lazy'}
+            />
+
+            {/* Bottom overlay */}
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+
+            {/* Text */}
+            <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+              <h3 class="text-xl sm:text-2xl font-bold text-white">{item.title}</h3>
+              <p class="text-sm sm:text-base text-white/70 mt-1">{item.desc}</p>
+            </div>
+
+            {/* Zoom indicator */}
+            <div class="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" /></svg>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Prev/Next peek overlays (faded previews) -->
+      <button id="gallery-prev" class="absolute left-0 top-0 bottom-0 w-12 sm:w-20 z-10 flex items-center justify-start pl-2 sm:pl-4 bg-gradient-to-r from-white/80 via-white/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-l-2xl sm:rounded-l-3xl group" aria-label="Previous">
+        <span class="w-8 h-8 sm:w-10 sm:h-10 bg-white/90 shadow-lg rounded-full flex items-center justify-center text-slate-600 group-hover:scale-110 transition-transform">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+        </span>
+      </button>
+      <button id="gallery-next" class="absolute right-0 top-0 bottom-0 w-12 sm:w-20 z-10 flex items-center justify-end pr-2 sm:pr-4 bg-gradient-to-l from-white/80 via-white/40 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-r-2xl sm:rounded-r-3xl group" aria-label="Next">
+        <span class="w-8 h-8 sm:w-10 sm:h-10 bg-white/90 shadow-lg rounded-full flex items-center justify-center text-slate-600 group-hover:scale-110 transition-transform">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </span>
+      </button>
+
+      <!-- Counter -->
+      <div class="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 bg-black/30 backdrop-blur-sm text-white/80 text-xs font-medium px-3 py-1.5 rounded-full">
+        <span id="gallery-counter">1 / {galleryItems.length}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dot indicators -->
+  <div class="flex items-center justify-center gap-2 mt-6" id="gallery-dots">
+    {galleryItems.map((_, i) => (
+      <button
+        class="gallery-dot w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"
+        data-dot-index={i}
+      ></button>
+    ))}
+  </div>
+</section>
+
+<!-- Fullscreen Lightbox -->
+<div id="gallery-lightbox" class="fixed inset-0 z-[95] hidden">
+  <div class="absolute inset-0 bg-black/90 backdrop-blur-md" id="lightbox-backdrop"></div>
+
+  <button id="lightbox-close" class="absolute top-4 right-4 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-200 hover:scale-110">
+    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+  </button>
+
+  <div class="absolute top-5 left-5 z-10 text-white/60 text-sm font-medium">
+    <span id="lightbox-counter">1 / 6</span>
+  </div>
+
+  <button id="lightbox-prev" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-200 hover:scale-110">
+    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+  </button>
+  <button id="lightbox-next" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-200 hover:scale-110">
+    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+  </button>
+
+  <div class="absolute inset-0 flex items-center justify-center p-8 sm:p-16">
+    <div id="lightbox-content" class="w-full max-w-4xl aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 lightbox-card">
+    </div>
+  </div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.gallery-slide');
+  const dots = document.querySelectorAll('.gallery-dot');
+  const prevBtn = document.getElementById('gallery-prev');
+  const nextBtn = document.getElementById('gallery-next');
+  const counter = document.getElementById('gallery-counter');
+  const total = slides.length;
+  let current = 0;
+
+  function goTo(index: number) {
+    // Wrap around
+    if (index < 0) index = total - 1;
+    if (index >= total) index = 0;
+
+    slides.forEach((slide, i) => {
+      const el = slide as HTMLElement;
+      if (i === index) {
+        el.style.opacity = '1';
+        el.style.pointerEvents = 'auto';
+        el.style.transform = 'scale(1)';
+      } else {
+        el.style.opacity = '0';
+        el.style.pointerEvents = 'none';
+        el.style.transform = 'scale(1.05)';
+      }
+    });
+
+    current = index;
+
+    // Update dots
+    dots.forEach((dot, i) => {
+      if (i === current) {
+        dot.classList.add('bg-primary-500', 'w-6');
+        dot.classList.remove('bg-slate-300', 'w-2');
+      } else {
+        dot.classList.remove('bg-primary-500', 'w-6');
+        dot.classList.add('bg-slate-300', 'w-2');
+      }
+    });
+
+    // Update counter
+    if (counter) counter.textContent = `${current + 1} / ${total}`;
+  }
+
+  prevBtn?.addEventListener('click', () => goTo(current - 1));
+  nextBtn?.addEventListener('click', () => goTo(current + 1));
+
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      goTo(parseInt((dot as HTMLElement).dataset.dotIndex || '0'));
+    });
+  });
+
+  // Touch/swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+  const carousel = document.getElementById('gallery-carousel');
+
+  carousel?.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  carousel?.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goTo(current + 1);
+      else goTo(current - 1);
+    }
+  }, { passive: true });
+
+  // Mouse drag support
+  let mouseDown = false;
+  let mouseStartX = 0;
+
+  carousel?.addEventListener('mousedown', (e) => {
+    mouseDown = true;
+    mouseStartX = e.clientX;
+  });
+
+  carousel?.addEventListener('mouseup', (e) => {
+    if (!mouseDown) return;
+    mouseDown = false;
+    const diff = mouseStartX - e.clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goTo(current + 1);
+      else goTo(current - 1);
+    }
+  });
+
+  carousel?.addEventListener('mouseleave', () => { mouseDown = false; });
+
+  // Init
+  goTo(0);
+
+  // === Lightbox ===
+  const lightbox = document.getElementById('gallery-lightbox');
+  const lightboxContent = document.getElementById('lightbox-content');
+  const lightboxCounter = document.getElementById('lightbox-counter');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  let lightboxIndex = 0;
+
+  function openLightbox(index: number) {
+    lightboxIndex = index;
+    renderLightbox();
+    lightbox?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => {
+      lightbox?.classList.add('lightbox-visible');
+    });
+  }
+
+  function closeLightbox() {
+    lightbox?.classList.remove('lightbox-visible');
+    setTimeout(() => {
+      lightbox?.classList.add('hidden');
+      document.body.style.overflow = '';
+    }, 300);
+  }
+
+  let lightboxAnimating = false;
+
+  function renderLightbox(direction: 'none' | 'left' | 'right' = 'none') {
+    const slide = slides[lightboxIndex] as HTMLElement;
+    if (!lightboxContent || !slide) return;
+
+    if (lightboxCounter) {
+      lightboxCounter.textContent = `${lightboxIndex + 1} / ${slides.length}`;
+    }
+
+    if (direction === 'none') {
+      // Initial open — no transition, just set content
+      lightboxContent.innerHTML = slide.innerHTML;
+      const zoom = lightboxContent.querySelector('[class*="top-4 right-4"]');
+      zoom?.remove();
+      return;
+    }
+
+    if (lightboxAnimating) return;
+    lightboxAnimating = true;
+
+    // Fade out + shrink
+    lightboxContent.style.transition = 'transform 0.2s ease-in, opacity 0.2s ease-in';
+    lightboxContent.style.transform = 'scale(0.88)';
+    lightboxContent.style.opacity = '0';
+
+    setTimeout(() => {
+      // Swap content while invisible
+      lightboxContent.innerHTML = slide.innerHTML;
+      const zoom = lightboxContent.querySelector('[class*="top-4 right-4"]');
+      zoom?.remove();
+
+      // Start scaled up
+      lightboxContent.style.transition = 'none';
+      lightboxContent.style.transform = 'scale(1.08)';
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Spring in to normal
+          lightboxContent.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease-out';
+          lightboxContent.style.transform = 'scale(1)';
+          lightboxContent.style.opacity = '1';
+
+          setTimeout(() => {
+            lightboxAnimating = false;
+          }, 400);
+        });
+      });
+    }, 200);
+  }
+
+  // Open on slide click (only if not dragging)
+  slides.forEach((slide) => {
+    slide.addEventListener('click', (e) => {
+      // Only open if mouse didn't move much (not a drag)
+      const idx = parseInt((slide as HTMLElement).dataset.galleryIndex || '0');
+      if (idx === current) openLightbox(idx);
+    });
+  });
+
+  lightboxClose?.addEventListener('click', closeLightbox);
+  lightboxBackdrop?.addEventListener('click', closeLightbox);
+
+  // Close lightbox when clicking anywhere in the dark area (outside the card)
+  lightbox?.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    // If click is on the lightbox itself, backdrop, or any area outside the card content
+    const card = lightboxContent;
+    if (!card) return;
+    if (!card.contains(target) && target !== lightboxPrev && target !== lightboxNext
+        && !lightboxPrev?.contains(target) && !lightboxNext?.contains(target)
+        && target !== lightboxClose && !lightboxClose?.contains(target)) {
+      closeLightbox();
+    }
+  });
+
+  lightboxPrev?.addEventListener('click', () => {
+    lightboxIndex = (lightboxIndex - 1 + slides.length) % slides.length;
+    renderLightbox('right');
+  });
+
+  lightboxNext?.addEventListener('click', () => {
+    lightboxIndex = (lightboxIndex + 1) % slides.length;
+    renderLightbox('left');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (lightbox?.classList.contains('hidden')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') {
+      lightboxIndex = (lightboxIndex - 1 + slides.length) % slides.length;
+      renderLightbox('right');
+    }
+    if (e.key === 'ArrowRight') {
+      lightboxIndex = (lightboxIndex + 1) % slides.length;
+      renderLightbox('left');
+    }
+  });
+</script>
