@@ -9,15 +9,10 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const faqs = [
-  { q: t('faq.q1'), a: t('faq.a1') },
-  { q: t('faq.q2'), a: t('faq.a2') },
-  { q: t('faq.q3'), a: t('faq.a3') },
-  { q: t('faq.q4'), a: t('faq.a4') },
-  { q: t('faq.q5'), a: t('faq.a5') },
-  { q: t('faq.q6'), a: t('faq.a6') },
-  { q: t('faq.q7'), a: t('faq.a7') },
-];
+const faqs = Array.from({ length: 23 }, (_, i) => ({
+  q: t(`faq.q${i + 1}` as any),
+  a: t(`faq.a${i + 1}` as any),
+}));
 ---
 
 <section id="faq" class="py-20 sm:py-28 bg-slate-50">
@@ -35,10 +30,10 @@ const faqs = [
           class:list={[
             'faq-item-wrapper',
             i > 0 && 'mt-4',
-            i >= 3 && 'faq-extra',
           ]}
+          data-faq-index={i}
           data-animate
-          style={`transition-delay: ${Math.min(i, 2) * 100}ms;`}
+          style={i < 5 ? `transition-delay: ${i * 100}ms;` : 'display:none;'}
         >
           <details class="faq-item group bg-white rounded-2xl border border-slate-200 overflow-hidden card-hover">
             <summary class="flex items-center justify-between cursor-pointer p-6 text-left list-none [&::-webkit-details-marker]:hidden">
@@ -65,7 +60,7 @@ const faqs = [
         id="faq-toggle"
         class="inline-flex items-center gap-2 bg-white border-2 border-slate-200 hover:border-primary-400 text-slate-700 hover:text-primary-600 font-semibold px-6 py-3 rounded-xl transition-all hover:-translate-y-0.5"
       >
-        <span id="faq-toggle-text">{t('faq.showMore')}</span>
+        <span id="faq-toggle-text">5 Soru Daha Göster</span>
         <svg id="faq-toggle-icon" class="w-4 h-4 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
@@ -74,7 +69,7 @@ const faqs = [
   </div>
 </section>
 
-<script define:vars={{ showMoreText: t('faq.showMore'), showLessText: t('faq.showLess') }}>
+<script>
   // --- Smooth accordion open/close ---
   const faqItems = document.querySelectorAll('.faq-item');
 
@@ -87,7 +82,6 @@ const faqs = [
       e.preventDefault();
 
       if (details.open) {
-        // Closing: animate then remove open
         answer.style.maxHeight = answer.scrollHeight + 'px';
         answer.style.opacity = '1';
         requestAnimationFrame(() => {
@@ -99,7 +93,6 @@ const faqs = [
           answer.removeEventListener('transitionend', handler);
         }, { once: true });
       } else {
-        // Close all others first
         faqItems.forEach((other) => {
           if (other !== details && other.open) {
             const otherAnswer = other.querySelector('.faq-answer');
@@ -118,7 +111,6 @@ const faqs = [
           }
         });
 
-        // Open this one: set open, then animate
         details.setAttribute('open', '');
         answer.style.maxHeight = '0';
         answer.style.opacity = '0';
@@ -126,7 +118,6 @@ const faqs = [
           answer.style.maxHeight = answer.scrollHeight + 'px';
           answer.style.opacity = '1';
         });
-        // After transition, remove inline max-height so content can reflow
         answer.addEventListener('transitionend', function handler() {
           answer.style.maxHeight = 'none';
           answer.removeEventListener('transitionend', handler);
@@ -135,44 +126,64 @@ const faqs = [
     });
   });
 
-  // --- Show more / show less with staggered animation ---
+  // --- Show more in batches of 5, then collapse ---
+  const BATCH = 5;
+  const INITIAL = 5;
+  const allFaqWrappers = document.querySelectorAll('.faq-item-wrapper');
+  const totalFaqs = allFaqWrappers.length;
   const toggleBtn = document.getElementById('faq-toggle');
   const toggleText = document.getElementById('faq-toggle-text');
   const toggleIcon = document.getElementById('faq-toggle-icon');
-  const extraFaqs = document.querySelectorAll('.faq-extra');
-  let expanded = false;
+  let visibleCount = INITIAL;
+
+  function updateToggleButton() {
+    if (!toggleText || !toggleBtn || !toggleIcon) return;
+    if (visibleCount >= totalFaqs) {
+      toggleText.textContent = 'Daha Az Göster';
+      toggleIcon.classList.add('rotate-180');
+    } else {
+      const remaining = Math.min(BATCH, totalFaqs - visibleCount);
+      toggleText.textContent = `${remaining} Soru Daha Göster`;
+      toggleIcon.classList.remove('rotate-180');
+    }
+  }
 
   toggleBtn?.addEventListener('click', () => {
-    expanded = !expanded;
-
-    if (expanded) {
-      // Show: reveal each with staggered animation
-      extraFaqs.forEach((faq, i) => {
-        faq.classList.remove('faq-collapsed');
-        faq.style.transitionDelay = `${i * 80}ms`;
-        // Force reflow then add visible class
-        requestAnimationFrame(() => {
-          faq.classList.add('faq-expanded');
-        });
-      });
+    if (visibleCount >= totalFaqs) {
+      // Collapse: hide all beyond initial
+      for (let i = INITIAL; i < totalFaqs; i++) {
+        const el = allFaqWrappers[i] as HTMLElement;
+        el.style.display = 'none';
+        // Close any open details
+        const detail = el.querySelector('details');
+        if (detail?.open) detail.removeAttribute('open');
+      }
+      visibleCount = INITIAL;
+      // Scroll back to FAQ section
+      const faqSection = document.getElementById('faq');
+      if (faqSection) {
+        faqSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     } else {
-      // Hide: reverse stagger
-      const total = extraFaqs.length;
-      extraFaqs.forEach((faq, i) => {
-        faq.style.transitionDelay = `${(total - 1 - i) * 60}ms`;
-        faq.classList.remove('faq-expanded');
-      });
-      // After all transitions complete, collapse
-      const lastDelay = (total - 1) * 60 + 400;
-      setTimeout(() => {
-        extraFaqs.forEach((faq) => {
-          faq.classList.add('faq-collapsed');
-          faq.style.transitionDelay = '';
+      // Show next batch with stagger
+      const from = visibleCount;
+      const to = Math.min(visibleCount + BATCH, totalFaqs);
+      for (let i = from; i < to; i++) {
+        const el = allFaqWrappers[i] as HTMLElement;
+        el.style.display = '';
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(16px)';
+        el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        el.style.transitionDelay = `${(i - from) * 80}ms`;
+        requestAnimationFrame(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
         });
-      }, lastDelay);
+      }
+      visibleCount = to;
     }
-
-    if (toggleText) toggleText.textContent = expanded ? showLessText : showMoreText;
-    toggleIcon?.classList.toggle('rotate-180', expanded);
+    updateToggleButton();
   });
+
+  updateToggleButton();
 </script>

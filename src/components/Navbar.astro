@@ -1,7 +1,6 @@
 ---
 import type { Lang } from '../i18n/utils';
-import { useTranslations, getLocalePath, getAlternateLang } from '../i18n/utils';
-import { languages } from '../i18n/ui';
+import { useTranslations, getLocalePath } from '../i18n/utils';
 
 interface Props {
   lang: Lang;
@@ -9,8 +8,6 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
-const altLang = getAlternateLang(lang);
-
 const navLinks = [
   { href: '#how-it-works', label: t('nav.howItWorks') },
   { href: '#gallery', label: t('nav.gallery') },
@@ -77,16 +74,8 @@ const legalLinks = [
         </div>
       </div>
 
-      <!-- Right side: Lang switch + CTA + Mobile menu -->
+      <!-- Right side: CTA + Mobile menu -->
       <div class="flex items-center gap-3">
-        <!-- Language Switcher -->
-        <a
-          href={getLocalePath(altLang)}
-          class="text-sm font-medium text-white hover:text-primary-500 transition-colors px-2 py-1 rounded border border-white/20 hover:border-primary-500 hover:scale-105 active:scale-95 transition-transform duration-150"
-        >
-          {languages[altLang]}
-        </a>
-
         <!-- CTA Button (desktop) -->
         <a
           href="#download"

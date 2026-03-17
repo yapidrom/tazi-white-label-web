@@ -181,6 +181,37 @@ details[open] .faq-answer {
   margin-bottom: 0.75rem;
 }
 
+.legal-content h2 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+}
+
+.legal-content ul {
+  list-style: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.legal-content ul li {
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: #475569;
+  margin-bottom: 0.35rem;
+}
+
+.legal-content table {
+  font-size: 0.85rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.legal-content em {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
 /* Hide scrollbar for gallery slider */
 .no-scrollbar {
   -ms-overflow-style: none;
