@@ -10,20 +10,12 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<footer class="bg-slate-900 text-slate-400 py-12">
+<footer class="bg-[#373632] text-white py-12">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
       <!-- Logo & Info -->
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
-        </div>
-        <div>
-          <span class="text-white font-bold text-lg">Merbis</span>
-          <p class="text-xs text-slate-500">{t('footer.municipality')}</p>
-        </div>
+      <div class="flex items-center">
+        <img src="/logo.png" alt="Merbis" class="h-44 w-auto" />
       </div>
 
       <!-- Quick links -->
@@ -49,7 +41,7 @@ const t = useTranslations(lang);
     </div>
 
     <!-- Copyright -->
-    <div class="mt-8 pt-8 border-t border-slate-800 text-center text-sm">
+    <div class="mt-8 pt-8 border-t border-white/10 text-center text-sm">
       <p>{t('footer.rights')}</p>
     </div>
   </div>

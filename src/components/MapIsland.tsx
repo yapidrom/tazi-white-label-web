@@ -45,7 +45,7 @@ const MapIsland: FunctionComponent<Props> = ({ lang }) => {
 
       // Custom icon
       const vehicleIcon = L.divIcon({
-        html: `<div style="background: #059669; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
+        html: `<div style="background: #EFB41D; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
@@ -79,7 +79,7 @@ const MapIsland: FunctionComponent<Props> = ({ lang }) => {
           .bindPopup(
             `<div style="font-family: Inter, sans-serif; text-align: center; padding: 4px;">
               <strong>${v.type}</strong><br/>
-              <span style="color: ${v.battery > 50 ? '#059669' : '#dc2626'}">
+              <span style="color: ${v.battery > 50 ? '#D49B0E' : '#dc2626'}">
                 🔋 ${batteryLabel}: ${v.battery}%
               </span>
             </div>`

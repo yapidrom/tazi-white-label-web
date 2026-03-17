@@ -13,32 +13,32 @@ const galleryItems = [
   {
     title: lang === 'tr' ? 'E-Scooter' : 'E-Scooter',
     desc: lang === 'tr' ? 'Şehir içi hızlı ulaşım' : 'Fast urban transport',
-    image: 'https://images.unsplash.com/photo-1566936737687-8f392a237b8b?w=1200&q=80',
+    image: '/images/gallery/1.jpg',
   },
   {
     title: lang === 'tr' ? 'E-Bisiklet' : 'E-Bike',
     desc: lang === 'tr' ? 'Konforlu ve çevre dostu' : 'Comfortable and eco-friendly',
-    image: 'https://images.unsplash.com/photo-1666359765531-8b24b30f1b5b?w=1200&q=80',
+    image: '/images/gallery/2.jpg',
   },
   {
     title: lang === 'tr' ? 'Park Alanları' : 'Parking Zones',
     desc: lang === 'tr' ? 'Şehir genelinde belirlenmiş alanlar' : 'Designated areas across the city',
-    image: 'https://images.unsplash.com/photo-1615445176538-74823d3cf11c?w=1200&q=80',
+    image: '/images/gallery/3.jpg',
   },
   {
     title: lang === 'tr' ? 'Güvenlik Ekipmanları' : 'Safety Gear',
     desc: lang === 'tr' ? 'Kask ve koruyucu ekipmanlar' : 'Helmets and protective equipment',
-    image: 'https://images.unsplash.com/photo-1603903824200-2c6927fd4b03?w=1200&q=80',
+    image: '/images/gallery/4.jpg',
   },
   {
     title: lang === 'tr' ? 'Mobil Uygulama' : 'Mobile App',
     desc: lang === 'tr' ? 'Her şey avucunuzun içinde' : 'Everything in your pocket',
-    image: 'https://images.unsplash.com/photo-1544198841-6ae3e25ea8f0?w=1200&q=80',
+    image: '/images/gallery/5.jpg',
   },
   {
     title: lang === 'tr' ? 'Şarj İstasyonları' : 'Charging Stations',
     desc: lang === 'tr' ? 'Şehir genelinde şarj noktaları' : 'Charging points across the city',
-    image: 'https://images.unsplash.com/photo-1703860271509-b50f5679f2a0?w=1200&q=80',
+    image: '/images/gallery/6.jpg',
   },
 ];
 ---
@@ -71,15 +71,6 @@ const galleryItems = [
               loading={i === 0 ? 'eager' : 'lazy'}
             />
 
-            {/* Bottom overlay */}
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
-
-            {/* Text */}
-            <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
-              <h3 class="text-xl sm:text-2xl font-bold text-white">{item.title}</h3>
-              <p class="text-sm sm:text-base text-white/70 mt-1">{item.desc}</p>
-            </div>
-
             {/* Zoom indicator */}
             <div class="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
               <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" /></svg>
@@ -107,13 +98,16 @@ const galleryItems = [
     </div>
   </div>
 
-  <!-- Dot indicators -->
+  <!-- Dot indicators with progress -->
   <div class="flex items-center justify-center gap-2 mt-6" id="gallery-dots">
     {galleryItems.map((_, i) => (
       <button
-        class="gallery-dot w-2 h-2 rounded-full bg-slate-300 transition-all duration-300"
+        class="gallery-dot relative h-2 rounded-full bg-slate-300 transition-all duration-300 overflow-hidden"
+        style="width: 8px;"
         data-dot-index={i}
-      ></button>
+      >
+        <span class="gallery-dot-fill absolute inset-0 bg-primary-500 rounded-full" style="transform-origin: left; transform: scaleX(0);"></span>
+      </button>
     ))}
   </div>
 </section>
@@ -172,14 +166,30 @@ const galleryItems = [
 
     current = index;
 
-    // Update dots
+    // Update dots with progress fill
     dots.forEach((dot, i) => {
+      const el = dot as HTMLElement;
+      const fill = el.querySelector('.gallery-dot-fill') as HTMLElement;
       if (i === current) {
-        dot.classList.add('bg-primary-500', 'w-6');
-        dot.classList.remove('bg-slate-300', 'w-2');
+        el.style.width = '24px';
+        el.classList.add('bg-slate-200');
+        el.classList.remove('bg-slate-300');
+        if (fill) {
+          fill.style.transition = 'none';
+          fill.style.transform = 'scaleX(0)';
+          requestAnimationFrame(() => {
+            fill.style.transition = 'transform 4s linear';
+            fill.style.transform = 'scaleX(1)';
+          });
+        }
       } else {
-        dot.classList.remove('bg-primary-500', 'w-6');
-        dot.classList.add('bg-slate-300', 'w-2');
+        el.style.width = '8px';
+        el.classList.remove('bg-slate-200');
+        el.classList.add('bg-slate-300');
+        if (fill) {
+          fill.style.transition = 'none';
+          fill.style.transform = 'scaleX(0)';
+        }
       }
     });
 
@@ -237,6 +247,26 @@ const galleryItems = [
 
   // Init
   goTo(0);
+
+  // Auto-play: advance every 4 seconds
+  let autoplayTimer: ReturnType<typeof setInterval>;
+
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(() => goTo(current + 1), 4000);
+  }
+
+  function stopAutoplay() {
+    clearInterval(autoplayTimer);
+  }
+
+  startAutoplay();
+
+  // Pause on hover, resume on leave
+  carousel?.addEventListener('mouseenter', stopAutoplay);
+  carousel?.addEventListener('mouseleave', startAutoplay);
+  carousel?.addEventListener('touchstart', stopAutoplay, { passive: true });
+  carousel?.addEventListener('touchend', () => startAutoplay(), { passive: true });
 
   // === Lightbox ===
   const lightbox = document.getElementById('gallery-lightbox');
