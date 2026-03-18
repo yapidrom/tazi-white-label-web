@@ -22,6 +22,7 @@ const legalLinks = [
   { id: 'open-terms-modal', label: t('legal.terms') },
   { id: 'open-privacy-modal', label: t('legal.privacy') },
   { id: 'open-kvkk-modal', label: t('legal.kvkk') },
+  { id: 'open-camera-modal', label: t('legal.camera') },
 ];
 ---
 
@@ -104,9 +105,9 @@ const legalLinks = [
   <!-- Mobile Menu -->
   <div
     id="mobile-menu"
-    class="lg:hidden hidden border-t border-white/10 bg-[#373632] backdrop-blur-lg"
+    class="lg:hidden hidden border-t border-white/10 bg-[#373632] backdrop-blur-lg max-h-[calc(100vh-4rem)] overflow-y-auto"
   >
-    <div class="px-4 py-4 space-y-1">
+    <div class="px-4 py-4 space-y-1 pb-8">
       {navLinks.map((link) => (
         <a
           href={link.href}

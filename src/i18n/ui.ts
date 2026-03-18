@@ -120,13 +120,13 @@ export const ui = {
     'contact.title': 'İletişim',
     'contact.subtitle': 'Bize ulaşın',
     'contact.address': 'Adres',
-    'contact.addressVal': 'Belediye Binası, Cumhuriyet Cad. No:1, Merkez',
+    'contact.addressVal': 'Kültür Mah. İsmet İnönü Bulvarı No:158, Akdeniz/Mersin',
     'contact.phone': 'Telefon',
-    'contact.phoneVal': '0 (312) 000 00 00',
+    'contact.phoneVal': '185',
     'contact.email': 'E-posta',
-    'contact.emailVal': 'merbis@belediye.gov.tr',
-    'contact.hours': 'Çalışma Saatleri',
-    'contact.hoursVal': 'Hafta içi: 08:00 - 18:00',
+    'contact.emailVal': 'teksin.mersin@mersin.bel.tr',
+    'contact.whatsapp': 'WhatsApp',
+    'contact.whatsappVal': '+90 324 185 00 00',
 
     // Legal
     'legal.title': 'Yasal',
@@ -134,6 +134,7 @@ export const ui = {
     'legal.terms': 'Kullanıcı Sözleşme',
     'legal.privacy': 'Gizlilik Politikası',
     'legal.kvkk': 'KVKK Aydınlatma Metni',
+    'legal.camera': 'Kamera Aydınlatma Beyanı',
 
     // Delete Account Modal
     'delete.title': 'Hesap Silme Talebi',
@@ -274,6 +275,125 @@ E-posta: teksin.mersin@mersin.bel.tr</p>
 <h3>MADDE 15: YÜRÜRLÜK VE UYUŞMAZLIK ÇÖZÜMÜ</h3>
 <p>İşbu sözleşme, KULLANICI tarafından dijital ortamda onaylandığı anda yürürlüğe girer. İşbu sözleşmenin uygulanmasından doğacak uyuşmazlıklarda Türk Hukuku uygulanır ve Mersin Mahkemeleri ile İcra Daireleri yetkilidir.</p>`,
 
+    // Privacy Policy Modal
+    'privacy.title': 'Gizlilik Politikası',
+    'privacy.content': `<h2 style="text-align:center;margin-bottom:0.75em;">KİŞİSEL VERİLERİN KORUNMASI VE İŞLENMESİ POLİTİKASI</h2>
+
+<h3>1. AMAÇ</h3>
+<p>7 Nisan 2016 tarihinde 29677 Sayılı Resmi Gazetede yayımlanması ile yürürlüğe giren ve resmiyet kazanan 6698 sayılı Kişisel Verileri Koruma Kanunuyla tanımlanan kişisel verilerin işlenmesi, başta özel hayatın gizliliği olmak üzere kişilerin temel hak ve özgürlüklerin korunması ile ilgili, çalışma alanlarıyla ilgili vatandaşların ve kurum çalışanlarının kişisel verilerini işleyen Mersin Büyükşehir Belediyesi veri sorumlularının yükümlülüklerini belirleyen politika oluşturmaktır.</p>
+
+<h3>2. KAPSAM</h3>
+<p>KVKK hükümleri gereğince, kişisel verileri işlenen gerçek kişiler ve bu verileri tamamen, kısmen otomatik ya da kayıt sisteminin bir parçası olarak otomatik olmayan yollarla işleyen Mersin Büyükşehir Belediyesi ağına ulaşan üçüncü kişiler, ihale yolu ile iş/hizmet aldığı şirketlerdeki çalışanlar ve kurum çalışanlarıdır.</p>
+
+<h3>3. HUKUKİ YÜKÜMLÜLÜKLER</h3>
+<p>KVK Kanunu uyarınca Mersin Büyükşehir Belediyesi'nin kişisel verilerin korunması ve işlenmesi kapsamında hukuki yükümlülükleri bulunmaktadır. Söz konusu yükümlülükler şu şekilde sıralanmaktadır:</p>
+<h4>3.1. Aydınlatma yükümlülüğü</h4>
+<p>Mersin Büyükşehir Belediyesi, kişisel verilerin toplanması sırasında, ilgili kişiyi aydınlatmak ve bu kapsamda ilgili kişiye aşağıdaki hususlarda bilgi vermekle yükümlüdür:</p>
+<ul>
+<li>Kişisel verilerin hangi amaçla işleneceği,</li>
+<li>İşlenen kişisel verilerin kimlere ve hangi amaçla aktarılabileceği,</li>
+<li>Kişisel verileri toplanmanın hukuki sebebi,</li>
+<li>İlgili kişinin hakları.</li>
+</ul>
+
+<h3>4. KİŞİSEL VERİLERİN SINIFLANDIRILMASI</h3>
+<h4>4.1. Kişisel veriler</h4>
+<p>KVK Kanunu kişisel verileri, kimliği belirli veya belirlenebilir gerçek kişiye ilişkin her türlü bilgi olarak tanımlamaktadır. Bu bağlamda, kişinin verilerinin belli veya belirlenebilir olması (bir başka bilgi ile bir araya getirildiğinde kişiye ulaşılması) gerekmektedir. Bir kişinin adı, soyadı, doğum tarihi ve yeri, kimlik, sosyal güvenlik numarası, telefon numarası, adresi, görüntüleri, ödeme bilgileri, sağlık bilgileri ve benzeri bilgiler kişisel veri tanımına girmektedir.</p>
+<p>Kişisel Verilerin Korunmasının konusu verisi işlenen gerçek kişiler olup, tüzel kişiler kapsam dışında bırakılmıştır. Bu nedenle, bir tüzel kişinin sicil numarası, ticaret unvanı ve sicil bilgileri gibi içerisinde gerçek kişiye ait bilgi içermeyen bilgiler, KVK Kanunu gereği kişisel veri olarak korunmamaktadır.</p>
+<h4>4.2. Özel nitelikli kişisel veriler</h4>
+<p>Özel nitelikli kişisel veriler; öğrenildiği takdirde ilgili kişinin mağdur olmasına veya ayrımcılığa maruz kalmasına neden olabilecek nitelikteki bilgiler olup; KVK Kanunu 6. Maddesinin 1. Fıkrasında şu şekilde sayılmaktadır: Kişilerin ırkı, etnik kökeni, siyasi düşüncesi, felsefi inancı, dini, mezhebi veya diğer inançları, kılık ve kıyafeti, dernek, vakıf ya da sendika üyeliği, sağlığı, cinsel hayatı, ceza mahkûmiyeti ve güvenlik tedbirleriyle ilgili verileri ile biyometrik ve genetik verileri. Özel nitelikli kişisel verilerin kanunda açıkça yetki verilen durumlar dışında ilgilinin açık rızası olmaksızın işlenmesi yasaktır.</p>
+<p>Bu kapsamda; Kurumumuz tarafından bu tür kişisel veriler Kanun gereği işlenmesi gereken durumlar dışında işlenmez veya ilgilinin açıkça rızası alınarak KVK Kanunu 6. maddesi uyarınca belirtilen şartlara uygun olarak işlenir.</p>
+
+<h3>5. KİŞİSEL VERİLERİN İŞLENMESİ POLİTİKASI</h3>
+<h4>5.1. Kişisel verilerin işlenmesine ilişkin uyulacak ilkeler</h4>
+<p>Toplanan tüm kişisel veriler, KVK Kanunu 4. Maddesinde sayılan ilkelere uygun ve 5. ve 6. maddelerinde belirtilen şartlar ile uyumlu bir şekilde işlenmelidir. Kurumumuz, KVK Kanunu 4. maddesi uyarınca; kişisel verilerin işlenmesi konusunda hukuka ve dürüstlük kurallarına uygun, doğru ve gerektiğinde güncel, belirli, açık ve meşru amaçlar güderek, amaçla bağlantılı, sınırlı ve ölçülü biçimde kişisel verileri işlemekle sorumludur.</p>
+<p>Bu demektir ki;</p>
+<ul>
+<li>Mersin Büyükşehir Belediyesi kişisel verileri yürütmekte olduğu faaliyetlere bağlı olarak işlemelidir.</li>
+<li>Mersin Büyükşehir Belediyesi kişisel verileri gerekli olduğu ölçüde işlemelidir. Bu kapsamda orantılık ilkesi dikkate alınmalıdır ve kişisel veriler amacın gerektirdiği dışında kullanılmamalıdır. Ayrıca amaca ulaşmayı sağlayacak ölçü aşılarak ihtiyaç olmayan veya ihtiyaç duyulmayan kişisel verilerin işlenmesinden kaçınılmalıdır.</li>
+</ul>
+<h4>5.2. Mersin Büyükşehir Belediyesi kişisel verileri işleme amaçları</h4>
+<p>Mersin Büyükşehir Belediyesi kişisel verileri KVK Kanunu 5 ve 6. maddeleri ile uyumlu olarak bu ve benzeri amaçlar için işlemektedir. Kurumumuz hizmetlerinin sunulabilmesi, bu konuda talep ettiğiniz/edeceğiniz hizmetlere ilişkin iletişim kurulabilmesi gibi amaçlarla belediyecilik faaliyetleri ile ilişkili olarak işlenmektedir.</p>
+<ul>
+<li>Kâğıt üzerinde ya da elektronik ortamda gerçekleştirilecek iş ve işlemlere dayanak olacak bilgi ve belgeleri düzenlemek,</li>
+<li>İlgili mevzuat uyarınca adli ve idari yetkili makamlarca öngörülen bilgi saklama, raporlama ve bilgilendirme yükümlülüklerine uymak,</li>
+<li>Kurumsal sürdürülebilirlik faaliyetlerinin planlanması ve icrası,</li>
+<li>Kurum şirketleri ve yüklenicilerle olan ilişkilerin yönetimi,</li>
+<li>Personel temin süreçlerinin yürütülmesi,</li>
+<li>Finansal raporlama ve risk yönetimi işlemlerinin icrası/takibi,</li>
+<li>Hukuk işlerinin icrası/takibi,</li>
+<li>Kurumsal iletişim faaliyetlerinin planlanması ve icrası,</li>
+<li>Kurumsal yönetim faaliyetlerinin icrası,</li>
+<li>HTYS, Bilgi Edinme talep, şikayet yönetimi,</li>
+<li>Yetkili kuruluşlara mevzuattan kaynaklı bilgi verilmesi,</li>
+<li>Ziyaretçi kayıtlarının oluşturulması ve takibi,</li>
+<li>Web Sitelerden ve Uygulamalardan sunulan hizmetlerin geliştirilmesi,</li>
+<li>Ücretsiz ve kablosuz internet hizmetlerinin verilmesi.</li>
+</ul>
+<p>Bahsi geçen amaçların dışında gerçekleştirilen işleme faaliyetinin, KVK Kanunu kapsamında öngörülen şartlardan herhangi birini karşılamıyor olması halinde, ilgili işleme sürecine ilişkin olarak Kurum tarafından kişisel veri sahibinin açık rızası temin edilmektedir.</p>
+
+<h3>6. BİNA, TESİS GİRİŞLERİ VE İÇERİSİNDE VERİ İŞLEME FAALİYETLERİ</h3>
+<p>Kurumumuz tarafından güvenliğin sağlanması amacıyla, Kurumumuzun binalarında ve tesislerinde güvenlik kamerasıyla izleme faaliyeti ile misafir giriş çıkışlarının takibine yönelik kişisel veri işleme faaliyetinde bulunulmaktadır. Bu faaliyetler güvenlik kameraları kullanılması, kimlik alınması ve misafir giriş çıkışlarının kayıt altına alınması yoluyla yapılmaktadır.</p>
+<p>Kurumumuz tarafından yürütülen kamera ile izleme ve kayıt tutulması, Özel Güvenlik Hizmetlerine Dair Kanun ve ilgili mevzuata uygun olarak sürdürülmektedir.</p>
+<p>Kurumumuz tarafından KVK Kanunu'nun 12. maddesine uygun olarak, kamera ile izleme faaliyeti sonucunda elde edilen kişisel verilerin güvenliğinin sağlanması için gerekli teknik ve idari tedbirler alınmaktadır.</p>
+<p>Kurumumuz tarafından Bina ve Tesislerimiz içerisinde kaldığınız süre boyunca talep eden Ziyaretçilerimize internet erişimi sağlanabilmektedir. Bu durumda internet erişimlerinize ilişkin log kayıtları 5651 Sayılı Kanun ve bu Kanuna göre düzenlenmiş olan mevzuatın amir hükümlerine göre kayıt altına alınmakta; bu kayıtlar ancak yetkili kamu kurum ve kuruluşları tarafından talep edilmesi veya Kurum içinde gerçekleştirilecek denetim süreçlerinde ilgili hukuki yükümlülüğümüzü yerine getirmek amacıyla işlenmektedir.</p>
+
+<h3>7. WEB SİTESİ VE MOBİL UYGULAMA ZİYARETÇİLERİ</h3>
+<p>Kurumumuz sahibi olduğu internet siteleri ve mobil uygulamalarda; bu siteleri ziyaret eden kişilerin sitelerdeki ziyaretlerini, ziyaret amaçlarıyla uygun bir şekilde gerçekleştirmelerini temin etmek amacıyla kaydetmektedir.</p>
+<p>Kurumumuzun Web sitelerinde ve mobil uygulamalarında yapmış olduğu bu faaliyetlere ilişkin kişisel verilerin işlenmesi ve korunmasına ilişkin detaylı açıklamalar, Kurum Web sitesi içerisinde Web sitesi ve Mobil Uygulama Gizlilik Politikasında yer almaktadır.</p>
+
+<h3>8. KİŞİSEL VERİLERİN AKTARILMASI POLİTİKASI</h3>
+<h4>8.1. Yurtiçinde kişisel verilerin aktarımı</h4>
+<p>Mersin Büyükşehir Belediyesi, kişisel verilerin aktarılması konusunda KVK Kanununda öngörülen ve KVK Kurulu tarafından alınan karar ve düzenlemelere uygun bir şekilde hareket etmekle yükümlüdür. Mersin Büyükşehir Belediyesi tarafından ilgililere ait kişisel veriler ve özel nitelikli veriler ilgili kişinin açık rızası olmadan başka gerçek kişilere veya tüzel kişilere aktarılamaz. Şu kadar ki, KVK Kanunu ve diğer Kanunların zorunlu kıldığı durumlarda ilgilinin açık rızası olmadan da veriler mevzuatta öngörülen şekilde ve sınırlarla bağlı olarak yetkili kılınan idari veya adli kurum veya kuruluşa aktarılabilir. Ayrıca, KVK Kanunu'nun 8. Maddesinde öngörülen şekilde 5. maddenin 2. Fıkrasında veya özel nitelikli kişisel veriler için 6. maddenin 3. Fıkrasında öngörülen durumlarda ilgilinin rızası olmaksızın da aktarılabilir. Mersin Büyükşehir Belediyesi, kişisel verileri Kanunda öngörülen şartlara uygun olarak ve gerekli tüm güvenlik önlemlerini alarak Türkiye'de bulunan üçüncü kişilere aktarabilir.</p>
+
+<h3>9. KİŞİSEL VERİLERİN GÜVENLİĞİ POLİTİKASI</h3>
+<h4>9.1. Mersin Büyükşehir Belediyesi'nin veri güvenliğine ilişkin yükümlülükleri</h4>
+<p>KVK Kanunu'nun 12. maddesi uyarınca, veri sorumlusu sıfatıyla Mersin Büyükşehir Belediyesi veri güvenliğine ilişkin yükümlülükleri şu şekildedir:</p>
+<ul>
+<li>Kişisel verilerin hukuka aykırı işlenmesini önlemek,</li>
+<li>Kişisel verilerin hukuka aykırı erişimini önlemek,</li>
+<li>Kişisel verilerin muhafazasını sağlamak için her türlü teknik ve idari tedbir almak,</li>
+<li>Kurum içinde gerekli denetimleri yapmak veya yaptırmak,</li>
+<li>Kendisi adına kişisel verileri işleyen kişilerin görevlerinden ayrılsalar dahi, görevleri sırasında öğrendikleri kişisel verileri kanun hükümlerine aykırı olarak başkasına açıklamaması ve işleme amacı dışında kullanmaması için gerekli önlemleri almak,</li>
+<li>İşlenen kişisel verilerin hukuka aykırı olarak başkaları tarafından ele geçirilmesi halinde ilgilisine ve Kurula bildirmek.</li>
+</ul>
+<h4>9.2. Mersin Büyükşehir Belediyesi'nin veri güvenliğine ilişkin aldığı tedbirler</h4>
+<p>Kişisel verilerin güvenliğine ilişkin yükümlülüklerini yerine getirilmesi açısından ve güvenliğin risk teşkil ettiği durumlarda hızlı bir şekilde hareket edilmesi adına, aşağıda sıralanmış olan tedbirleri alır:</p>
+<p><strong>9.2.1.</strong> Kişisel verilere hukuka aykırı erişimi engellemek için alınan teknik ve idari tedbirler. Kişisel verinin işlenmesi, aktarılması ve muhafaza edilmesine ilişkin ilgili bölümlerde alınması gereken teknik ve idari tedbirler sayılmıştır. Kurum bu tedbirleri eksiksiz olarak almak ve hukuka aykırı erişimi engellemekle yükümlü olduğu halde; yine de üçüncü kişilerin kişisel verilere hukuka aykırı erişimi söz konusu olmuş ise; kişisel verilerin korunmasına ilişkin ilgili mevzuata ve Kurul kararlarına uygun şekilde ilgililerin zarar görmemesi için teknik ve idari tüm tedbirleri alır.</p>
+<p><strong>9.2.2.</strong> Kişisel verilerin korunması konusunda alınan tedbirler ve bunların denetimi. Kurum bünyesinde kullanılmakta olan veri kayıt sistemlerinin KVK Kanunu ve ilgili mevzuata uygun şekilde oluşturulduğu ve kullanıldığı periyodik olarak takip edilerek denetlenir ve bu konuda yetkili kılınan kişi veya kurula raporlama yapılır.</p>
+<p><strong>9.2.3.</strong> Kişisel verilerin yetkisiz bir şekilde ifşası durumunda alınacak tedbirler. Kurum, kişisel verilerin yetkisiz bir şekilde ifşasının engellenmesine yönelik tedbirler almakla ve buna ilişkin iç politika oluşturmakla yükümlüdür. Buna ek olarak, söz konusu durumlarda kurum, veri sorumlusu olarak, kişisel verileri yetkisiz bir şekilde ifşa edilen kişileri ve KVK Kurulunu bilgilendirmekle yükümlüdür.</p>
+
+<h3>10. İLGİLİ KİŞİNİN HAKLARI</h3>
+<h4>10.1. Kişisel verilere erişim hakkı</h4>
+<p>İlgili kişilerin bir ücrete tabi olmadan kişisel verilerine erişim hakkı bulunmaktadır. Bu nedenle Kurum ilgili kişiye;</p>
+<ul>
+<li>Kişisel verilerinin işlenip işlenmediğini öğrenme;</li>
+<li>Kişisel verileri işlenmişse buna ilişkin bilgi talep etme;</li>
+<li>Kişisel verilerinin işlenme amacını ve bunların amacına uygun kullanılıp kullanılmadığını öğrenme;</li>
+<li>Yurt içinde veya yurt dışında kişisel verilerinin aktarıldığı üçüncü kişileri bilme isteğinde bulunma hakkı.</li>
+</ul>
+<h4>10.2. Kişisel verilerini değiştirme veya sildirme hakkı</h4>
+<p>İlgili kişilerin bir ücrete tabi olmadan kişisel verilerini değiştirme veya sildirme hakkı bulunmaktadır. Bu kapsamda;</p>
+<ul>
+<li>Kişisel verilerinin eksik veya yanlış işlenmiş olması halinde bunların düzeltilmesini isteme,</li>
+<li>Kişisel verilerinin işlenmesini gerektiren sebeplerin ortadan kalkması halinde kişisel verilerin silinmesini veya yok edilmesini isteme,</li>
+<li>Yukarıda bahsedilen düzeltme, silme veya yok etme işlemlerinin, kişisel verilerinin aktarıldığı üçüncü kişilere bildirilmesini isteme,</li>
+<li>İşlenen verilerin münhasıran otomatik sistemler vasıtasıyla analiz edilmesi suretiyle aleyhe bir sonuç ortaya çıkmasına itiraz etme.</li>
+</ul>
+
+<h3>11. ÇEREZ POLİTİKASI</h3>
+<p>Bu çerez uygulamaları politikası Mersin Büyükşehir Belediyesi tarafından veya onlar adına yürütülen web siteleri ve Mobil Platformlar veya web siteleri üzerinden erişilen, kullanılan platformlar içindir.</p>
+<h4>11.1. Çerezler (Cookies) Nedir?</h4>
+<p>Çerezler web sitelerinde dolaşırken bilgilerin, şifrelerin kaydedildiği, o web sitesine tekrar girildiğinde bilgilerinizin hatırlanarak giriş yapıldığı, web sunucusu tarafından tarayıcınız aracılığı ile bilgisayarınıza yerleştirilen küçük veri dosyalarıdır. Tarayıcınız ve sunucu arasında bir bağlantı sağlandığında site, çerezler aracılığıyla sizi tanır.</p>
+<p>Çerezlerin kullanılma amacı, web sitesini ziyaret eden kullanıcıya kolaylık sağlamaktır. Çerezlerin ömrü, kullanıcının yapmış olduğu tarayıcı ayarlarına bağlı olarak değişiklik gösterir. Genel olarak internet tarayıcıları, çerezleri otomatik olarak kabul edecek şekilde ön tanımlıdır. Tarayıcılar, çerezleri engelleyecek veya cihaza çerez gönderildiğinde kullanıcıya uyarı verecek şekilde ayarlanabilir. Çerezleri devre dışı bırakana kadar depolanmış olan çerez verilerini temizleyebilirsiniz.</p>
+<p>Çerezleri yönetmek tarayıcıdan tarayıcıya farklılık gösterdiğinden ayrıntılı bilgi almak için tarayıcının yardım menüsüne bakılabilir.</p>
+
+<h3>12. DOKÜMANIN YAYINLANMASI VE SAKLANMASI</h3>
+<p>İşbu veri politikası KVK Kanunu kapsamındaki aydınlatma yükümlülüğü ile birlikte kişisel verileri bulunan kullanıcılara bildirilecek ve Mersin Büyükşehir Belediyesi'ne bağlı sitelerde de yayınlanacaktır.</p>
+
+<h3>13. YÜRÜRLÜK</h3>
+<p>İşbu veri politikası yayınlandığı tarihte yürürlüğe girer ve internet sitesinden kaldırılana kadar yürürlükte kalmaya devam eder.</p>`,
+
     // KVKK Modal
     'kvkk.title': 'KVKK Aydınlatma Metni',
     'kvkk.content': `<h2 style="text-align:center;margin-bottom:0.75em;">AYDINLATMA METNİ</h2>
@@ -299,6 +419,33 @@ Kişisel verileriniz, bu kurumumuz tarafından mevzuat kapsamında işlenmektedi
 
 <li><strong>İlgili Kişinin Hakları:</strong> KVKK'nın 11. maddesine göre, kişisel verilerinizin işlenip işlenmediğini öğrenme; işlenmişse bilgi talep etme; işlenme amacını ve bu amaca uygun kullanılıp kullanılmadığını öğrenme; yurt içinde veya dışına aktarılmışsa aktarım yapılan üçüncü kişileri bilme; eksik veya hatalı işlenen verilerin düzeltilmesini isteme; işlenme sebeplerine uygun işlenmiyorsa silinmesini veya yok edilmesini isteme; otomatik sistemde işleniyorsa bunun üçüncü kişiye aktarılması durumunda bildirimde bulunma haklarına sahipsiniz. Bu haklarınızı kullanmak için Mersin Büyükşehir Belediyesi'ne yazılı başvuru yapabilirsiniz.</li>
 </ul>`,
+
+    // Camera Aydınlatma Beyanı
+    'camera.title': 'Kamera Aydınlatma Beyanı',
+    'camera.content': `<h2 style="text-align:center;margin-bottom:0.75em;">Kişisel Verilerin İşlenmesi Kamera Aydınlatma Beyanı</h2>
+<p>Mersin Büyükşehir Belediyesi içerisinde yer alan güvenlik kameraları hakkında iş bu Aydınlatma Metni, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVK)'nun 10. maddesi ile Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ kapsamında, veri sorumlusu tarafından hazırlanmıştır.</p>
+<p>Mersin Büyükşehir Belediyesi, KVK kanunu ilkeleri doğrultusunda, "Kamera Aydınlatma Metni" içeriğinde her zaman değişiklik yapabilir.</p>
+<p>Mersin Büyükşehir Belediyesi, kişisel verileri hangi hukuki gerekçelerle ve hangi yöntemlerle topladığını, elde edilen verileri nasıl işlediğini, veri güvenliğini hangi yöntemlerle sağladığını, başlıklar altında sunar.</p>
+
+<h3>1. Kamera ile İzleme Faaliyetinin Yasal Dayanağı</h3>
+<p>Kurumun kameralarla izlenmesi, ses ve görüntülerinin kaydedilmesi Mersin Büyükşehir Belediyesi tarafından yürütülen kamera ile izleme faaliyeti, Özel Güvenlik Hizmetlerine dair kanun ve ilgili mevzuata uygun olarak sürdürülmektedir.</p>
+
+<h3>2. Kişisel Verilerin Korunması Kanunu Çerçevesinde Güvenlik Kamerası ile İzleme Faaliyeti Yürütülmesi</h3>
+<p>Kurumumuz, güvenlik kamerası ile izleme faaliyeti yürütülmesinde, Kişisel Verilerin Korunması Kanunu'nda yer alan düzenlemelere uygun hareket etmektedir. Kurumumuz, bina ve tesislerinde güvenliğin sağlanması amacıyla, kanunlarda öngörülen amaçlarla ve Kişisel Verilerin Korunması Kanunu'nda belirtilen kişisel veri işleme şartlarına uygun olarak güvenlik kamerası izleme faaliyetinde bulunmaktadır.</p>
+<p>Söz konusu kişisel veri, Kanunun 5. maddesinde yer alan "Veri sorumlusunun hukuki yükümlülüğünü yerine getirebilmesi için zorunlu olması" ve "İlgili kişinin temel hak ve özgürlüklerine zarar vermemek kaydıyla, veri sorumlusunun meşru menfaatleri için veri işlenmesinin zorunlu olması" hukuki sebebine dayanarak otomatik yolla işlenmektedir.</p>
+<p>Söz konusu kişisel veriler hukuki uyuşmazlıkların giderilmesi veya ilgili mevzuatı gereği talep halinde adli makamlar veya ilgili kolluk kuvvetlerine aktarılabilecektir.</p>
+
+<h3>3. Kamera ile İzleme Faaliyetinin Duyurulması</h3>
+<p>Kurumumuz tarafından Kişisel Verilerin Korunması Kanunu'nun 10. maddesine uygun olarak, kişisel veri sahibi aydınlatılmaktadır. Böylelikle, kişisel veri sahibinin temel hak ve özgürlüklerine zarar verilmesinin engellenmesi, şeffaflığın ve kişisel veri sahibinin aydınlatılmasının sağlanması amaçlanmaktadır.</p>
+<p>Kurumumuz tarafından kamera ile izleme faaliyetine yönelik olarak; kurum internet sitemizde (www.mersin.bel.tr) Kişisel Verilerin Korunması ve İşlenmesi Politikası ve aynı zamanda Aydınlatma Metni yayımlanmakta ve izlemenin yapıldığı alanların girişlerine izleme yapılacağına ilişkin bildirim yazısı asılmaktadır.</p>
+
+<h3>4. Kamera ile İzleme Faaliyetinin Yürütülme Amacı ve Amaçla Sınırlılık</h3>
+<p>Kurumumuz, Kişisel Verilerin Korunması Kanunu'nun 4. maddesine uygun olarak, kişisel verileri işlendikleri amaçla bağlantılı, sınırlı ve ölçülü bir biçimde işlenmektedir. Kurumumuz tarafından kamera ile izleme faaliyetinin sürdürülmesindeki amaç, bu metinde ve Aydınlatma Metninde belirtilen amaçlarla sınırlıdır. Bu doğrultuda, güvenlik kameralarının izleme alanları, sayısı ve ne zaman izleme yapılacağı, güvenlik amacına ulaşmak için yeterli ve bu amaçla sınırlı olarak uygulamaya alınmaktadır. Kişinin mahremiyetini güvenlik amaçlarını aşan şekilde müdahale sonucu doğurabilecek alanlarda (örneğin; soyunma odaları, tuvaletler vb.) izlemeye tabi tutulmamaktadır.</p>
+
+<h3>5. Elde Edilen Verilerin Güvenliğinin Sağlanması</h3>
+<p>Kurumumuz, Kişisel Verilerin Korunması Kanunu'nun 12. maddesine uygun olarak, kamera ile izleme faaliyeti sonucunda elde edilen kişisel verilerin güvenliğinin sağlanması için Kişisel Verilerin Korunması ve İşlenmesi Politikamızda belirtilen teknik ve idari tedbirleri almaktadır.</p>
+<p>İzleme sonucunda elde edilen bilgilere, kimlerin erişebildiği ve bu bilgilerin kimlere aktarıldığı dijital ortamda kaydedilen ve muhafaza edilen kayıtlara yalnızca sınırlı sayıda çalışanının erişimi bulunmaktadır.</p>
+<p>Canlı kamera görüntülerini ise, kurum içinde güvenlik görevleri ve idari işlerden sorumlu departman çalışanları izleyebilmektedir. Kayıtlara erişimi olan sınırlı sayıda kişi gizlilik taahhütnamesi ile eriştiği verilerin gizliliğini koruyacağını beyan etmektedir. İlgili kişinin haklarını düzenleyen, 11. madde kapsamındaki taleplerinizi, internet sitemizde bulunan KVK Kapsamında Aydınlatma Beyanı içerisindeki Kişisel Veri Başvuru Formu ile formda belirtilen başvuru yöntemlerinden birini kullanarak veri sorumlusuna iletebilirsiniz. Konuyla ilgili detaylı bilgiye ulaşmak isterseniz, www.mersin.bel.tr adresini ziyaret edebilirsiniz.</p>`,
 
     // Footer
     'footer.rights': '© 2026 Merbis. Tüm hakları saklıdır.',

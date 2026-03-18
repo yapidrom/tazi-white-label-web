@@ -15,9 +15,11 @@
     "@astrojs/preact": "^5.0.0",
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^6.0.2",
-    "leaflet": "^1.9.4",
     "motion": "^12.35.2",
     "preact": "^10.29.0",
     "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/google.maps": "^3.58.1"
   }
 }

@@ -9,6 +9,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const googleMapsApiKey = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY || '';
 ---
 
 <section id="map" class="py-20 sm:py-28 bg-white">
@@ -21,7 +22,7 @@ const t = useTranslations(lang);
 
     <!-- Map Container -->
     <div class="mt-12 rounded-2xl overflow-hidden shadow-xl border border-slate-200 h-[400px] sm:h-[500px]" data-animate>
-      <MapIsland client:visible lang={lang} />
+      <MapIsland client:visible lang={lang} apiKey={googleMapsApiKey} />
     </div>
   </div>
 </section>

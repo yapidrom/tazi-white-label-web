@@ -26,7 +26,8 @@
       "Bash(npm list:*)",
       "Bash(pip install:*)",
       "Bash(pip3 install:*)",
-      "Bash(ls -la \"d:/Projects/tazi-white-label-web/public/images/app-screen\"*)"
+      "Bash(ls -la \"d:/Projects/tazi-white-label-web/public/images/app-screen\"*)",
+      "Bash(npm uninstall:*)"
     ]
   }
 }
