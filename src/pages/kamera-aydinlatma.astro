@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { useTranslations } from '../i18n/utils';
+
+const lang = 'tr';
+const t = useTranslations(lang);
+---
+
+<Layout title="Kamera Aydınlatma Beyanı - Merbis" description="Merbis Kamera Aydınlatma Beyanı" lang={lang}>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <a href="/" class="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-primary-600 transition-colors">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
+        Ana Sayfaya Dön
+      </a>
+    </div>
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 sm:p-12 legal-content">
+      <Fragment set:html={t('camera.content')} />
+    </div>
+  </div>
+</Layout>

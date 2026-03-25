@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: merbis-web
+  namespace: mersin
+  labels:
+    app: merbis-web
+    environment: prod
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 80
+    name: http
+  selector:
+    app: merbis-web

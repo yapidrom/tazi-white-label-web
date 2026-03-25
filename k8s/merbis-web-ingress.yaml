@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: merbis-web-ingress
+  namespace: mersin
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: merbis.mersin.bel.tr
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: merbis-web
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - merbis.mersin.bel.tr
+    secretName: merbis-mersin-bel-tr-tls

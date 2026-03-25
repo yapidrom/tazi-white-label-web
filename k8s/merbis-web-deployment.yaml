@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: merbis-web
+  namespace: mersin
+  labels:
+    app: merbis-web
+    environment: prod
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: merbis-web
+  template:
+    metadata:
+      labels:
+        app: merbis-web
+        environment: prod
+    spec:
+      containers:
+      - name: merbis-web
+        image: localhost:5000/merbis-web:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+          name: http
+        resources:
+          requests:
+            cpu: 10m
+            memory: 32Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
